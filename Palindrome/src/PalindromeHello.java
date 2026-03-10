@@ -1,35 +1,42 @@
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class PalindromeHello {
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        Stack<Character> stack = new Stack<>();
 
-        System.out.print("Enter a string: ");
+        System.out.print("Enter a word: ");
         String input = sc.nextLine();
 
-        // Push characters into stack
+        Queue<Character> queue = new LinkedList<>();
+        Stack<Character> stack = new Stack<>();
+
+        // Insert characters into Queue and Stack
         for (int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
+            char ch = input.charAt(i);
+            queue.add(ch);   // Enqueue
+            stack.push(ch);  // Push
         }
 
         boolean isPalindrome = true;
 
-        // Pop and compare
-        for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) != stack.pop()) {
+        System.out.println("\nComparing Queue (FIFO) and Stack (LIFO):");
+
+        while (!queue.isEmpty()) {
+            char qChar = queue.remove(); // Dequeue
+            char sChar = stack.pop();    // Pop
+
+            System.out.println("Queue Dequeue: " + qChar + " | Stack Pop: " + sChar);
+
+            if (qChar != sChar) {
                 isPalindrome = false;
-                break;
             }
         }
 
-        // Print result
+        // Result
         if (isPalindrome) {
-            System.out.println("The string is a palindrome.");
+            System.out.println("\nThe word is a Palindrome.");
         } else {
-            System.out.println("The string is not a palindrome.");
+            System.out.println("\nThe word is NOT a Palindrome.");
         }
 
         sc.close();
